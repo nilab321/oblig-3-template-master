@@ -121,7 +121,24 @@ public class SBinTre<T> {
     }
 
     public int antall(T verdi) {
-        throw new UnsupportedOperationException("Ikke kodet ennå!");
+        Objects.requireNonNull(verdi, "må ikke være null!");
+
+        Node<T> p = rot;
+
+        int count = 0;
+        while (p != null) {
+            int cmp = comp.compare(verdi, p.verdi);
+            if (cmp < 0) {
+                p = p.venstre;
+            } else if (cmp > 0) {
+                p = p.høyre;
+            } else {
+                count++;
+                p = p.høyre;
+            }
+        }
+
+        return count;
     }
 
     public void nullstill() {
